@@ -18,9 +18,9 @@ class ContactAdminMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public array $contactInfo)
     {
-        //
+
     }
 
     /**
@@ -30,7 +30,7 @@ class ContactAdminMail extends Mailable
      */
     public function build()
     {
-        return $this->from('user@examle.com')
+        return $this->from($this->contactInfo['email'], $this->contactInfo['name'])
             ->subject('お問い合わせがありました')
             ->text('emails.contact.admin');
     }

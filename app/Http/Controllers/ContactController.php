@@ -15,11 +15,11 @@ class ContactController extends Controller
     }
 
     function sendMail(ContactRequest $request) {
-        // $validated = $request->validate();
+        $validated = $request->validated();
     
         // これ以降の行は入力エラーがなかった場合のみ実行されます
         // 登録処理(実際はメール送信などを行う)
-        Mail::to('10l.mah.s11@gmail.com')->send(new ContactAdminMail());
+        Mail::to('10l.mah.s11@gmail.com')->send(new ContactAdminMail($validated));
         return to_route('contact.complete');
     }
 
