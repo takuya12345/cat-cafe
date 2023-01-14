@@ -24,11 +24,10 @@
                 @foreach($blogs as $blog)
                     <tr @class(['text-sm', 'bg-gray-50' => $loop->odd])>
                         <td class="flex px-4 py-3 items-center">
-                            <img src="http://storage/app/public/blogs/0TPGqGJwisCkaXiGLeyjYG8S1TEXPAkuHLPs1Zpz.png') }}" alt="">
                             <img class="w-12 h-12 mr-4 object-cover rounded-md" src="{{ asset('storage/'. $blog->image) }}" alt="">
                             <p class="font-medium"><a href="{{ route('admin.blogs.edit', ['blog' => $blog]) }}">{{ $blog->title }}</a></p>
-                            <td class="font-medium">成長</td>
                         </td>
+                        <td class="font-medium">{{ $blog->category->name }}</td>
                         <td class="font-medium">高橋</td>
                         <td>{{ $blog->updated_at }}</td>
                         <td>
