@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Cat;
 use App\Models\Blog;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
-use App\Models\Category;
-use App\Models\Cat;
 
 class AdminBlogController extends Controller
 {
     // ブログ一覧画面
     public function index()
     {
-        $blogs = Blog::latest('updated_at')->simplePaginate(10);
+        $blogs = Blog::latest('updated_at')->paginate(10);
+        // 毎回記載することになるので、bladeファイルに namespace から直接記載
+        // $user = Auth::user();
         return view('admin.blogs.index', ['blogs' => $blogs]);
     }
 
@@ -63,6 +66,9 @@ class AdminBlogController extends Controller
     {
         $categories = Category::all();
         $cats = Cat::all();
+
+        // 毎回記載することになるので、bladeファイルに namespace から直接記載
+        // $user = Auth::user();
         return view('admin.blogs.edit', ['blog' => $blog, 'categories' => $categories, 'cats' => $cats]);
     }
 
